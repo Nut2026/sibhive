@@ -28,7 +28,7 @@ export const TeenSignInPage = () => {
   return (
     <main className="page-shell">
       <p className="eyebrow">Teen access</p>
-      <h1>Sign in to your hive</h1>
+      <h1>Log In to your hive</h1>
       <form className="form-stack" onSubmit={handleSubmit}>
         <label>
           Email address
@@ -45,7 +45,7 @@ export const TeenSignInPage = () => {
         </label>
         {message ? <p aria-live="polite" className="form-message">{message}</p> : null}
         <button className="button button-primary" type="submit">
-          Sign in
+          Log In
         </button>
       </form>
       <p>

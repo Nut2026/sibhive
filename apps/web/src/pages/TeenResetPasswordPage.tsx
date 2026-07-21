@@ -35,7 +35,7 @@ export const TeenResetPasswordPage = () => {
         </button>
       </form>
       <p>
-        <Link to="/teen/sign-in">Return to teen sign in</Link>
+        <Link to="/teen/sign-in">Return to teen Log In</Link>
       </p>
     </main>
   )

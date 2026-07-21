@@ -3,16 +3,16 @@ import { MemoryRouter } from 'react-router-dom'
 import App, { HiveNavigation } from './App'
 
 describe('App', () => {
-  it('renders the Sibhive heading and primary actions', () => {
+  it('renders the public landing page and primary actions', () => {
     render(
       <MemoryRouter>
         <App />
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole('heading', { name: 'Sibhive' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Create your hive' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Sign in' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Welcome to Sibhive' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Get Started' })).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: 'Log In' })).toHaveLength(2)
   })
 
   it('hides or shows the Pollen Garden navigation entry with its flag', () => {

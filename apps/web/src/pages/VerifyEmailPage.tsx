@@ -15,7 +15,7 @@ export const VerifyEmailPage = () => {
       </p>
       <p>Open the link to continue to your parental-consent step.</p>
       <Link className="button button-secondary" to="/login">
-        Return to sign in
+        Return to Log In
       </Link>
     </main>
   )

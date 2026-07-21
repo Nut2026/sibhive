@@ -35,7 +35,7 @@ export const LoginPage = () => {
   return (
     <main className="page-shell">
       <p className="eyebrow">Welcome back</p>
-      <h1>Sign in</h1>
+      <h1>Log In</h1>
       <form className="form-stack" onSubmit={handleSubmit}>
         <label>
           Email address
@@ -59,7 +59,7 @@ export const LoginPage = () => {
         </label>
         {message ? <p aria-live="polite" className="form-message">{message}</p> : null}
         <button className="button button-primary" disabled={isSubmitting} type="submit">
-          {isSubmitting ? 'Signing in…' : 'Sign in'}
+          {isSubmitting ? 'Logging in…' : 'Log In'}
         </button>
       </form>
       <p>
