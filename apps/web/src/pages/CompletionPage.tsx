@@ -1,0 +1,8 @@
+import { useState, type FormEvent } from 'react'
+import { supabase } from '../lib/supabase'
+
+export const CompletionPage = () => {
+  const [activityId, setActivityId] = useState(''); const [proof, setProof] = useState(''); const [type, setType] = useState<'text' | 'image' | 'audio'>('text'); const [message, setMessage] = useState('')
+  const submit = async (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); const { data: { session } } = await supabase.auth.getSession(); const response = await fetch('/api/submit-completion', { method: 'POST', headers: { authorization: `Bearer ${session?.access_token ?? ''}`, 'content-type': 'application/json' }, body: JSON.stringify({ activityId, responseType: type, responseData: type === 'text' ? { text: proof } : { mediaUrl: proof } }) }); setMessage(response.ok ? 'Completion submitted for review.' : 'We could not submit this completion.') }
+  return <main className="page-shell"><p className="eyebrow">Activity completion</p><h1>Share what you did</h1><form className="form-stack" onSubmit={submit}><label>Activity ID<input required value={activityId} onChange={(event) => setActivityId(event.target.value)} /></label><label>Proof type<select value={type} onChange={(event) => setType(event.target.value as typeof type)}><option value="text">Text</option><option value="image">Photo</option><option value="audio">Audio</option></select></label><label>{type === 'text' ? 'What did you do?' : 'Secure proof URL'}<textarea required value={proof} onChange={(event) => setProof(event.target.value)} /></label><button className="button button-primary" type="submit">Submit completion</button>{message ? <p aria-live="polite" className="form-message">{message}</p> : null}</form></main>
+}

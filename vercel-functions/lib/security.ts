@@ -1,0 +1,4 @@
+const attempts = new Map<string, { count: number; resetAt: number }>()
+export const rateLimit = (request: Request, limit = 30, windowMs = 60_000) => { const key = request.headers.get('x-forwarded-for') ?? 'unknown'; const now = Date.now(); const current = attempts.get(key); const next = !current || current.resetAt <= now ? { count: 1, resetAt: now + windowMs } : { ...current, count: current.count + 1 }; attempts.set(key, next); return next.count <= limit }
+export const safeError = (message = 'Request could not be completed.') => Response.json({ error: message }, { status: 400, headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } })
+export const audit = async (db: { from: (table: string) => any }, hiveId: string, actorId: string, action: string, targetId?: string, metadata: Record<string, unknown> = {}) => db.from('sensitive_action_audits').insert({ hive_id: hiveId, actor_id: actorId, action, target_id: targetId ?? null, metadata })

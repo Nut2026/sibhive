@@ -1,0 +1,3 @@
+import { createAdminClient } from '../lib/auth-helpers.js'
+import { featureDisabled, isFeatureEnabled } from '../lib/feature-flags.js'
+export default async function handler(request: Request): Promise<Response> { if (!isFeatureEnabled('NOTIFICATIONS')) return featureDisabled('NOTIFICATIONS'); if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) return Response.json({ error: 'Unauthorized.' }, { status: 401 }); const { count, error } = await createAdminClient().from('push_subscriptions').select('*', { count: 'exact', head: true }); return error ? Response.json({ error: error.message }, { status: 400 }) : Response.json({ queued: count ?? 0, schedule: '08:00 daily prompt; 16:00 activity reminder' }) }

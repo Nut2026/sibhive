@@ -1,0 +1,3 @@
+import { createAdminClient } from '../lib/auth-helpers.js'
+import { featureDisabled, isFeatureEnabled } from '../lib/feature-flags.js'
+export default async function handler(request: Request): Promise<Response> { if (!isFeatureEnabled('WEEKLY_EMAIL')) return featureDisabled('WEEKLY_EMAIL'); if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) return Response.json({ error: 'Unauthorized.' }, { status: 401 }); const { count, error } = await createAdminClient().from('hives').select('*', { count: 'exact', head: true }); return error ? Response.json({ error: error.message }, { status: 400 }) : Response.json({ queued_parent_summaries: count ?? 0, schedule: 'Monday 09:00' }) }

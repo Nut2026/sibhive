@@ -1,0 +1,3 @@
+const bands = [{ max: 20, name: 'Honey Drop' }, { max: 40, name: 'Honeycomb' }, { max: 60, name: 'Honey Pot' }, { max: 80, name: 'Honey Harvest' }, { max: 100, name: 'Golden Hive' }]
+export const getSweetnessBand = (score: number) => bands.find((band) => score <= band.max) ?? bands[4]
+export const HoneyJarScore = ({ score }: { score: number }) => { const value = Math.max(0, Math.min(100, score)); const band = getSweetnessBand(value); return <section aria-label={`Hive Sweetness Score: ${value} out of 100, ${band.name}`} className="honey-jar"><div aria-hidden="true" className="honey-fill" style={{ height: `${value}%` }} /><strong>{value}/100</strong><span>{band.name}</span><p>Hive Sweetness Score: {value} out of 100 — {band.name}</p></section> }
